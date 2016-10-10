@@ -2,14 +2,9 @@
 #include <iostream>
 #include <fstream>
 
-
-
 #define PACE 1
 
-
 WordFilter* WordFilter::pInstace = NULL;
-
-
 WordNode::WordNode(string character){
 	if (character.size() == PACE)
 	{
@@ -38,10 +33,6 @@ WordNode* WordNode::insertChild(string& nextCharacter){
 	}
 	return NULL;
 }
-
-
-
-
 
 
 WordNode* WordTree::insert(string &keyword){
@@ -104,8 +95,6 @@ WordNode* WordTree::find(WordNode* parent, string& keyword){
 }
 
 
-
-
 WordFilter* WordFilter::sharedInstace(){
 	if (pInstace)
 	{
@@ -121,7 +110,6 @@ void WordFilter::release(){
 	}
 	pInstace = NULL;
 }
-
 
 void WordFilter::load(const char* filepath){
 	ifstream infile(filepath, ios::in);
@@ -140,7 +128,6 @@ void WordFilter::load(const char* filepath){
 			nLoopCount++;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 			string s;
-			//s = read.substr(0, read.length() - 1);
 			s = read.substr(0, read.length());
 			m_tree.insert(s);
 #endif
@@ -149,16 +136,17 @@ void WordFilter::load(const char* filepath){
 
 	infile.close();
 }
-void WordFilter::censor(string &source){
+
+void WordFilter::censor(string &source, const string& replaceStr){
 	int lenght = source.size();
 	for (int i = 0; i < lenght; i += 1)
 	{
 		string substring = source.substr(i, lenght - i);
 		if (m_tree.find(substring) != NULL)
 		{
-			source.replace(i, (m_tree.count+1), "**");
+			source.replace(i, (m_tree.count+1), replaceStr);
 			lenght = source.size();
-			//cout << "source = " <<  source << endl;
+			cout << "source = " <<  source << endl;
 		}
 	}
 }

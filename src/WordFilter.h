@@ -25,10 +25,6 @@ public:
 	WordNode* insertChild(string& nextCharacter);
 };
 
-
-
-
-
 class WordTree
 {
 public:
@@ -46,8 +42,6 @@ private:
 	WordNode* find(WordNode* parent, string& keyword);
 };
 
-
-
 class WordFilter
 {
 public:
@@ -59,5 +53,5 @@ private:
 
 public:
 	void load(const char* filepath);
-	void censor(string &source);
+	void censor(string &source, const string& replaceStr = "**");
 };
