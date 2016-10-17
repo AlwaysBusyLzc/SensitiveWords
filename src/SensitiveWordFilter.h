@@ -1,3 +1,11 @@
+/*---------------------------------------------------------------
+文件:		SensitiveWordFilter.h
+文件说明：	敏感词检测替换
+作者：		lzc
+时间：		10/14/2016
+版本：		1.0.0.0
+---------------------------------------------------------------*/
+
 #include <map>
 #include <string>
 
@@ -14,11 +22,13 @@ private:
 	string m_character;
 	_TreeMap m_map;
 	WordNode* m_parent;
+	bool m_bIsFinish;			// 一个检测单元的结束标准  true 检测可以到此停止
 	
 public:
 	WordNode(string character);
 	WordNode(){
 		m_character = "";
+		m_bIsFinish = false;
 	};
 	string getCharacter() const{ return m_character; };
 	WordNode* findChild(string& nextCharacter);
@@ -42,16 +52,17 @@ private:
 	WordNode* find(WordNode* parent, string& keyword);
 };
 
-class WordFilter
+class CSensitiveWordFilter
 {
 public:
-	static WordFilter* pInstace;
-	static WordFilter* sharedInstace();
-	static void release();
+	CSensitiveWordFilter(){}
+	~CSensitiveWordFilter(){}
+	
 private:
 	WordTree m_tree;
 
 public:
-	void load(const char* filepath);
-	void censor(string &source, const string& replaceStr = "**");
+	bool load(const char* filepath);
+	// 检测并替换字符串  返回原字符串是否被修改
+	bool censor(string &source, const string& replaceStr = "**");
 };
