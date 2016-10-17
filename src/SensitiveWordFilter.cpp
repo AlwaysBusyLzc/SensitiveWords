@@ -1,4 +1,4 @@
-#include "../include/SensitiveWordFilter.h"
+#include "SensitiveWordFilter.h"
 #include <iostream>
 #include <fstream>
 

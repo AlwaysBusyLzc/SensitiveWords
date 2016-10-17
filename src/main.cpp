@@ -1,11 +1,11 @@
-#include "WordFilter.h"
+#include "SensitiveWordFilter.h"
 #include <iostream>
 
 using namespace std;
 
 int main()
 {
-	WordFilter* pWordFilter = WordFilter::sharedInstace();
+	CSensitiveWordFilter* pWordFilter = new CSensitiveWordFilter();
 	if (NULL == pWordFilter)
 	{
 		std::cout << "ERROR!!! pWordFilter == NULL" << endl;
@@ -23,4 +23,7 @@ int main()
 	cout << "after filter tempStr = " << tempStr << endl;
 
 	system("pause");
+
+	delete pWordFilter;
+	return 0;
 }
