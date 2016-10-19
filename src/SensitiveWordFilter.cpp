@@ -52,6 +52,7 @@ WordNode* WordTree::find(string& keyword){
 WordNode* WordTree::insert(WordNode* parent, string& keyword){
 	if (keyword.size() == 0)
 	{
+		parent->m_bIsFinish = true;
 		return NULL;
 	}
 	string firstChar = keyword.substr(0, PACE);
