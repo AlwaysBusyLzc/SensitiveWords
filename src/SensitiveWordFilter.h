@@ -1,13 +1,14 @@
 /*---------------------------------------------------------------
-ÎÄ¼ş:		SensitiveWordFilter.h
-ÎÄ¼şËµÃ÷£º	Ãô¸Ğ´Ê¼ì²âÌæ»»
-×÷Õß£º		lzc
-Ê±¼ä£º		10/14/2016
-°æ±¾£º		1.0.0.0
+æ–‡ä»¶:		SensitiveWordFilter.h
+æ–‡ä»¶è¯´æ˜ï¼š	æ•æ„Ÿè¯æ£€æµ‹æ›¿æ¢
+ä½œè€…ï¼š		lzc
+æ—¶é—´ï¼š		10/14/2016
+ç‰ˆæœ¬ï¼š		1.0.0.0
 ---------------------------------------------------------------*/
 
 #include <map>
 #include <string>
+#include "windows.h"
 
 using namespace std;
 
@@ -22,13 +23,14 @@ private:
 	string m_character;
 	_TreeMap m_map;
 	WordNode* m_parent;
-	bool m_bIsFinish;			// Ò»¸ö¼ì²âµ¥ÔªµÄ½áÊø±ê×¼  true ¼ì²â¿ÉÒÔµ½´ËÍ£Ö¹
+	bool m_bIsFinish;			// ä¸€ä¸ªæ£€æµ‹å•å…ƒçš„ç»“æŸæ ‡å‡†  true æ£€æµ‹å¯ä»¥åˆ°æ­¤åœæ­¢
 	
 public:
 	WordNode(string character);
 	WordNode(){
 		m_character = "";
 		m_bIsFinish = false;
+		m_parent = NULL;
 	};
 	string getCharacter() const{ return m_character; };
 	WordNode* findChild(string& nextCharacter);
@@ -63,6 +65,6 @@ private:
 
 public:
 	bool load(const char* filepath);
-	// ¼ì²â²¢Ìæ»»×Ö·û´®  ·µ»ØÔ­×Ö·û´®ÊÇ·ñ±»ĞŞ¸Ä
+	// æ£€æµ‹å¹¶æ›¿æ¢å­—ç¬¦ä¸²  è¿”å›åŸå­—ç¬¦ä¸²æ˜¯å¦è¢«ä¿®æ”¹
 	bool censor(string &source, const string& replaceStr = "**");
 };
