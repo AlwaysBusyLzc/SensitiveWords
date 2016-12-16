@@ -280,6 +280,7 @@ bool CSensitiveWordFilter::load(const char* filepath)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 			string s;
 			s = read.substr(0, read.length());
+			std::transform(s.begin(), s.end(), s.begin(), tolower);
 			m_tree.insert(s);
 #endif
 		}
@@ -293,10 +294,18 @@ bool CSensitiveWordFilter::censor(string &source, const string& replaceStr)
 {
 	bool bHasModified = false;
 	int length = source.size();
+
+	// 保存统一转换成小写的字符串
+	string szLower;
+	szLower.resize(source.size());
+
 	for (int i = 0; i < length;)
 	{
 		string substring = source.substr(i, length - i);
-		if (m_tree.find(substring) != NULL)
+		szLower = substring;
+		std::transform(substring.begin(), substring.end(), szLower.begin(), tolower);
+
+		if (m_tree.find(szLower) != NULL)
 		{
 			source.replace(i, (m_tree.count), replaceStr);
 			length = source.size();

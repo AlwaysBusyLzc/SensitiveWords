@@ -1,6 +1,7 @@
 #include "SensitiveWordFilter.h"
 #include <iostream>
 
+
 using namespace std;
 
 std::wstring Ascii2Unicode(const std::string& str)
@@ -39,17 +40,7 @@ int main()
 		return 1;
 	}
 
-	/*pWordFilter->load("../../../../GitHub/SensitiveWords/config/SensitiveWords.txt");
-
-	std::string tempStr = "asdfiasd血书赶紧啊德国陆军妈逼的过滤的婊子养的屁啊";
-	pWordFilter->censor(tempStr);
-	cout << "after filter tempStr = " << tempStr << endl;
-
-	tempStr = "asdfiasd血书赶紧啊德国陆军妈逼的过滤的婊子养的屁啊";
-	pWordFilter->censor(tempStr, "呵呵");
-	cout << "after filter tempStr = " << tempStr << endl;*/
-
-	pWordFilter->load("ChatSensitiveWord.txt");
+	pWordFilter->load("../../../../GitHub/SensitiveWords/config/ChatSensitiveWord.txt");
 
 	char szTest[64];
 
@@ -57,7 +48,12 @@ int main()
 	{
 		cin.getline(szTest, 64);
 		//wstring wszTemp = Ascii2Unicode(string(szTest));
-		if (pWordFilter->censor(Ascii2Utf8(string(szTest))))
+
+		std::string szUtf8 = Ascii2Utf8(string(szTest));
+		//std::transform(szUtf8.begin(), szUtf8.end(), szUtf8.begin(), tolower);
+		//cout << "after transform string is " << szUtf8 << endl;
+
+		if (pWordFilter->censor(szUtf8))
 		{
 			cout << "check str has sensitiveWorld+++++++++++++++++++++++++++++++++++++++++++++++" << endl;
 		}
